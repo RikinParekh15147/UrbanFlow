@@ -27,7 +27,6 @@ urbanflow-etl = { workspace = true }
 
 [tool.pytest.ini_options]
 testpaths = ["apps/api/tests", "pipelines/tests"]
-addopts = "--basetemp=artifacts/pytest"
 
 [tool.ruff]
 line-length = 100
