@@ -26,6 +26,10 @@ Raw data, tools, environment files and generated artifacts are ignored by Git.
 
 The [initial Colab handoff](docs/colab-handoff.md) contains the verified Drive notebook and
 bundle links, plus instructions for the already-downloaded local fallback.
+The CLI download and checksum-verified Drive persistence have now completed. Raw files are
+in `My Drive/UrbanFlow/data/raw` under the CLI account `rikinparekh1415@gmail.com`; the
+temporary CPU runtime was stopped. The earlier browser notebook is in the separate
+university Drive account, as documented in the handoff.
 
 ## Run in Colab
 

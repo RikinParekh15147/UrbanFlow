@@ -15,8 +15,20 @@ The notebook is available as a browser alternative. After workspace restrictions
 WSL and the existing Colab CLI were verified. A named CPU runtime, `urbanflow-ingestion`,
 successfully ran `scripts/colab-ingest.py`, importing the same reusable package. The January
 Parquet download took 0.744 seconds; all three source checksums matched the local fallback.
-These files initially live in temporary `/content/urbanflow-data/raw`; they must be persisted
-before the runtime is stopped. Drive mounting requires a separate Google consent.
+The files were first downloaded into temporary `/content/urbanflow-data/raw`. After the user
+approved Google's Drive consent, `scripts/colab-persist.py` copied all three files to
+`My Drive/UrbanFlow/data/raw` and verified each saved SHA-256. The persisted total is
+60,193,143 bytes. `docs/colab-drive-status.json` records the completed persistence result.
+The CPU runtime was then stopped successfully.
+
+## Google account locations
+
+The existing CLI is authenticated as `rikinparekh1415@gmail.com`; this account owns the
+persisted raw data. The connected Google Drive plugin is authenticated as
+`23bit044@sot.pdpu.ac.in`; this university account contains the earlier notebook and bundle
+links above. These are separate Drives. Use the CLI for the current personal-account
+workflow. To use the browser notebook in the personal account, copy/upload both the local
+notebook and its matching bundle into that account's Drive first.
 
 CLI session state is isolated at `/tmp/urbanflow-colab/sessions.json`. Never commit its
 contents or OAuth credentials. The CLI executable is

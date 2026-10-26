@@ -1,0 +1,9 @@
+{
+  "state": "complete",
+  "period": "2025-01",
+  "files": 3,
+  "total_bytes": 60193143,
+  "persisted_at": "2026-10-26T09:38:44.280906+00:00",
+  "destination": "My Drive/UrbanFlow/data/raw",
+  "verification": "SHA-256 of each VM source and each persisted Drive file"
+}
