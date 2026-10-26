@@ -1,0 +1,14 @@
+.kpi-strip dd.info-method { font-size: 25px; letter-spacing: -.5px; }
+.info-facts dd { text-align: right; overflow-wrap: anywhere; max-width: 65%; }
+.info-link { display: inline-block; margin: 0 22px 22px; color: var(--green); font-size: 12px; text-decoration: underline; }
+.info-sources { padding: 8px 22px 22px; }
+.info-sources details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.info-sources details:last-child { border-bottom: 0; }
+.info-sources summary { cursor: pointer; font-size: 12px; overflow-wrap: anywhere; }
+.info-sources summary span { float: right; margin-left: 16px; color: var(--muted); font-size: 11px; }
+.info-sources dl { font-size: 11px; line-height: 1.8; }
+.info-sources dt { color: var(--muted); margin-top: 12px; }
+.info-sources dd { margin: 2px 0 0; overflow-wrap: anywhere; }
+.info-definitions { white-space: normal; }
+.info-definitions td:first-child { width: 25%; min-width: 105px; }
+@media (max-width: 700px) { .info-sources summary span { float: none; display: block; margin: 6px 0 0 16px; } }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T12:47:09.241579+00:00",
+  "generatedAt": "2026-10-26T17:51:43.317982+00:00",
   "title": "Design System: UrbanFlow",
   "extensions": {
     "colorMeta": {
@@ -479,15 +479,22 @@
       "kind": "card",
       "refersTo": "panel",
       "description": "Flat, bordered container for chart evidence and qualifiers.",
-      "html": "<section class=\"ds-panel\"><div class=\"ds-panel-heading\"><div><h2>Daily pickup demand</h2><p>Recorded pickups across the selected period</p></div><a href=\"#demand\">Explore demand</a></div><p class=\"ds-panel-note\">Trips per day ? January 2025</p></section>",
+      "html": "<section class=\"ds-panel\"><div class=\"ds-panel-heading\"><div><h2>Daily pickup demand</h2><p>Recorded pickups across the selected period</p></div><a href=\"#demand\">Explore demand</a></div><p class=\"ds-panel-note\">Trips per day &middot; January 2025</p></section>",
       "css": ".ds-panel{font-family:'DM Sans Variable',sans-serif;background:white;color:var(--ink,#172b26);border:1px solid var(--line,#dce3dc);border-radius:12px;overflow:hidden;min-width:0;}.ds-panel-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 22px 6px;}.ds-panel-heading h2{font-size:14px;font-weight:600;margin:0;letter-spacing:-.15px;}.ds-panel-heading p{font-size:10px;line-height:1.7;color:var(--muted,#52665e);margin:5px 0 0;}.ds-panel-heading a{font-size:10px;font-weight:500;color:var(--green,#216e55);text-decoration:none;white-space:nowrap;}.ds-panel-heading a:hover{text-decoration:underline;}.ds-panel-heading a:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;}.ds-panel-note{font-size:11px;color:var(--muted,#52665e);padding:14px 22px 22px;margin:0;}"
     },
     {
       "name": "KPI strip",
       "kind": "custom",
       "description": "Measurements sit on the ground with dividers, rather than separate cards. Preview figures are illustrative.",
-      "html": "<dl class=\"ds-kpis\"><div><dt>Taxi trips</dt><dd>123,456</dd><span>Recorded pickups in your selection</span></div><div><dt>Average fare</dt><dd>$20.00</dd><span>Base fare ? eligible fare records</span></div></dl>",
+      "html": "<dl class=\"ds-kpis\"><div><dt>Taxi trips</dt><dd>123,456</dd><span>Recorded pickups in your selection</span></div><div><dt>Average fare</dt><dd>$20.00</dd><span>Base fare &middot; eligible fare records</span></div></dl>",
       "css": ".ds-kpis{font-family:'DM Sans Variable',sans-serif;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:#f4f5f0;color:var(--ink,#172b26);margin:0;padding:22px 0 24px;border-top:1px solid var(--line,#dce3dc);border-bottom:1px solid var(--line,#dce3dc);}.ds-kpis>div{padding:0 22px;border-left:1px solid var(--line,#dce3dc);}.ds-kpis>div:first-child{padding-left:0;border:0;}.ds-kpis dt{font-size:11px;color:var(--muted,#52665e);margin-bottom:8px;}.ds-kpis dd{font-size:clamp(22px,2.25vw,34px);font-weight:500;line-height:1.2;letter-spacing:-1px;margin:0 0 8px;font-variant-numeric:tabular-nums;}.ds-kpis span{display:block;font-size:10px;color:var(--muted,#52665e);line-height:1.6;}"
+    },
+    {
+      "name": "Source provenance disclosure",
+      "kind": "custom",
+      "description": "Native disclosure for a source filename, size, URL and wrapped checksum. Preview values are illustrative.",
+      "html": "<div class=\"ds-sources\"><details><summary>yellow_tripdata_2025-01.parquet<span>File size from manifest</span></summary><dl><dt>Source URL</dt><dd>https://example.org/yellow_tripdata_2025-01.parquet</dd><dt>SHA-256</dt><dd><code>0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef</code></dd></dl></details></div>",
+      "css": ".ds-sources{font-family:\"DM Sans Variable\",sans-serif;padding:8px 22px 22px;color:var(--ink,#172b26);background:white;}.ds-sources details{border-bottom:1px solid var(--line,#dce3dc);padding:14px 0;}.ds-sources details:last-child{border-bottom:0;}.ds-sources summary{cursor:pointer;font-size:12px;overflow-wrap:anywhere;}.ds-sources summary span{float:right;margin-left:16px;color:var(--muted,#52665e);font-size:11px;}.ds-sources dl{font-size:11px;line-height:1.8;}.ds-sources dt{color:var(--muted,#52665e);margin-top:12px;}.ds-sources dd{margin:2px 0 0;overflow-wrap:anywhere;}.ds-sources summary:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;}@media(max-width:700px){.ds-sources summary span{float:none;display:block;margin:6px 0 0 16px;}}"
     }
   ],
   "narrative": {
@@ -499,7 +506,18 @@
       "Self-hosted DM Sans with clear numeric hierarchy.",
       "Coordinated geographic selection and ranked evidence."
     ],
-    "rules": [],
+    "rules": [
+      {
+        "name": "The Shared Series Rule",
+        "body": "Reuse the chart palette in its established order; geographic intensity uses its separate sequential green scale.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Use borders and tonal separation for analytical panels; reserve the existing popup shadow for transient map information.",
+        "section": "elevation"
+      }
+    ],
     "dos": [
       "**Do** preserve the city-atlas hierarchy: dark navigation, warm ground, flat white evidence surfaces.",
       "**Do** reuse DM Sans and tabular numerals for comparable measurements.",

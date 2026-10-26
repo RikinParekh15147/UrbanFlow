@@ -13,6 +13,9 @@ Verified on the development Windows machine on 26 October 2026:
   CSV download and mobile document overflow. Desktop and mobile captures of all six
   sections received an independent visual review with disposition **ship**.
   That screenshot review does not certify keyboard behavior or computed contrast.
+- The Dataset & Model extension separately passed desktop/mobile visual review,
+  provenance disclosure, dataset-wide filter scope, benchmark navigation and preserved
+  trip selection checks.
 - The packaged backend exercised twelve routes. The installed desktop application
   passed startup, rendered dashboard, API, renderer security and backend shutdown
   checks on this machine. Final artifact hashes are in `release/release-manifest.json`.

@@ -4,6 +4,10 @@ Urban mobility analytics for **11,198,026 real NYC Yellow Taxi records from Janu
 
 The app includes Overview, Demand Intelligence, Geographic Analytics, Trip Efficiency, Fare Analytics and Big Data Lab, shared date/borough/pickup-zone filters, official TLC polygons, and CSV exports carrying selection and dataset metadata. Results describe taxi demand and inferred travel efficiency, not observed road congestion or crashes.
 
+The **Dataset & Model** tab explains the active dataset, source checksums, eligibility
+rules, formulas, processing configuration and analytical outputs. UrbanFlow uses
+descriptive Spark SQL analytics; this release does not train a prediction model.
+
 ## Run the browser application
 
 Run from the repository root with Python 3.12/3.13, uv and Node.js 22+. Lockfiles define dependencies. Datasets and generated releases are ignored by Git; this completed workspace has the real Q1 serving files in `data/serving/`.

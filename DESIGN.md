@@ -185,7 +185,7 @@ Responsive behaviour follows the implemented breakpoints:
 - At (960px) and below, overview and geography become single-column; KPIs become a two-by-two grid.
 - At (700px) and below, the rail becomes a top header with horizontally scrollable navigation. Main insets become (16px), all chart grids stack, dates occupy a full filter row, and panel gaps become the frontmatter mobile-gap value.
 
-Tables scroll within their own containers. Maps retain deliberate working heights: overview (369px), large geography (550px), changing to (380px) and (470px) on mobile. Preserve the body minimum width of (320px).
+Tables scroll within their own containers. Measurement-definition tables are a prose variant: their text wraps naturally, with a first column of (25%) and a minimum width of (105px). Dataset fact values align right, occupy at most (65%) of the row, and allow long identifiers to wrap. Maps retain deliberate working heights: overview (369px), large geography (550px), changing to (380px) and (470px) on mobile. Preserve the body minimum width of (320px).
 
 ## Elevation & Depth
 
@@ -230,6 +230,10 @@ Use actual TLC geometry in geographic coordinates. The sequential map legend run
 ### Request states
 
 Loading uses a circular forest-accent indicator with a clear status message; empty selection states explain how to recover. Failed analysis includes explanatory text and a labelled retry action. Preserve text and semantics alongside state colour.
+
+### Source provenance disclosures
+
+Dataset source files use native expandable disclosures inside the existing white panel. Fine separators, compact labels and familiar spacing preserve the atlas system. File size sits to the right on desktop and below the filename on mobile. Expanded URLs and checksums wrap anywhere so long identifiers do not force horizontal page overflow. SHA-256 values use semantic code text as a local technical exception; do not extend that treatment to normal analytical labels or run metadata. The descriptive analysis-type KPI uses a contextual (25px) value with tighter spacing rather than the numeric metric scale.
 
 ## Do's and Don'ts
 

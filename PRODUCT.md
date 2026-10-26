@@ -25,6 +25,8 @@ Dashboards must work after Colab disconnects. MongoDB serves precomputed aggrega
 Six sections: overview, demand, geography, trip efficiency, fares and Big Data Lab. Shared
 date, borough and zone filters. Known units and dataset versions. Raw data lives outside
 MongoDB. Taxi efficiency is not observed road congestion. No fabricated benchmarks or KPIs.
+A separate Dataset & Model information tab explains source provenance, metric formulas,
+processing configuration and the distinction between descriptive analysis and trained ML.
 
 ## Evidence on Hand
 Q1 2025 TLC source: 11,198,026 raw rows and 11,198,001 pickups within the selected

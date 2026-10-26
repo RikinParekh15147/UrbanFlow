@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { NavLink, Route, Routes, useLocation, Link } from 'react-router-dom';
-import { Activity, ArrowUpRight, CalendarDays, ChartColumn, Database, FlaskConical, Gauge, LayoutDashboard, MapPinned, Route as RouteIcon, RotateCcw, X, Wallet } from 'lucide-react';
+import { Activity, ArrowUpRight, BookOpen, CalendarDays, ChartColumn, Database, FlaskConical, Gauge, LayoutDashboard, MapPinned, Route as RouteIcon, RotateCcw, X, Wallet } from 'lucide-react';
 import { useDataset } from './data-context';
 import { Button } from '../components/ui/button';
 import { QueryState } from '../components/panels';
@@ -11,6 +11,7 @@ const Geography = lazy(() => import('../features/geo-analysis/page'));
 const Trips = lazy(() => import('../features/trips/page'));
 const Fares = lazy(() => import('../features/fares/page'));
 const Benchmarks = lazy(() => import('../features/benchmarks/page'));
+const DatasetModel = lazy(() => import('../features/dataset-model/page'));
 const destinations = [
   { path: '/', label: 'City overview', icon: LayoutDashboard },
   { path: '/demand', label: 'Demand intelligence', icon: ChartColumn },
@@ -18,11 +19,12 @@ const destinations = [
   { path: '/trips', label: 'Trip efficiency', icon: Gauge },
   { path: '/fares', label: 'Fare analytics', icon: Wallet },
   { path: '/lab', label: 'Big Data Lab', icon: FlaskConical },
+  { path: '/dataset-model', label: 'Dataset & Model', icon: BookOpen },
 ];
 
 function Filters() {
   const { filters, update, reset, zones, start, end } = useDataset();
-  const lab = useLocation().pathname === '/lab';
+  const lab = ['/lab', '/dataset-model'].includes(useLocation().pathname);
   const [from, setFrom] = useState(filters.start_date ?? '');
   const [to, setTo] = useState(filters.end_date ?? '');
   useEffect(() => { setFrom(filters.start_date ?? ''); setTo(filters.end_date ?? ''); }, [filters.start_date, filters.end_date]);
@@ -53,7 +55,7 @@ export default function App() {
         <Filters />
         <QueryState loading={status.isPending} error={status.error} retry={() => status.refetch()} />
         {status.data?.status === 'not_published' && <div className="query-state"><Database size={30}/><h1>No dataset published yet</h1><p>Run the ETL and publishing jobs, then reload this workspace.</p><Button onClick={() => status.refetch()}>Check dataset</Button></div>}
-        {!!run_id && <Suspense fallback={<QueryState loading error={null} retry={() => {}} />}><Routes><Route path="/" element={<Overview />} /><Route path="/demand" element={<Demand />} /><Route path="/geography" element={<Geography />} /><Route path="/trips" element={<Trips />} /><Route path="/fares" element={<Fares />} /><Route path="/lab" element={<Benchmarks />} /><Route path="*" element={<div className="query-state"><h1>Analysis not found</h1><Link to="/">Return to city overview</Link></div>} /></Routes></Suspense>}
+        {!!run_id && <Suspense fallback={<QueryState loading error={null} retry={() => {}} />}><Routes><Route path="/" element={<Overview />} /><Route path="/demand" element={<Demand />} /><Route path="/geography" element={<Geography />} /><Route path="/trips" element={<Trips />} /><Route path="/fares" element={<Fares />} /><Route path="/lab" element={<Benchmarks />} /><Route path="/dataset-model" element={<DatasetModel />} /><Route path="*" element={<div className="query-state"><h1>Analysis not found</h1><Link to="/">Return to city overview</Link></div>} /></Routes></Suspense>}
         <footer className="workspace-footer"><span>NYC TLC Yellow Taxi · {start} to {end}</span><span>Dataset <code>{run_id ?? 'unavailable'}</code></span><span>Historical analysis · NYC local time</span></footer>
       </main>
     </div>
