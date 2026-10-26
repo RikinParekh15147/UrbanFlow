@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "urbanflow-etl"
+version = "0.1.0"
+description = "Reusable NYC taxi batch-processing pipeline"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+spark = ["pyspark>=3.5,<4"]
+publish = ["pymongo>=4.11,<5"]
+
+[project.scripts]
+urbanflow-ingest = "urbanflow_etl.ingestion.download:main"

@@ -1,0 +1,94 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "UrbanFlow API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "description": "Process liveness, independent of database readiness.",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/datasets/status": {
+      "get": {
+        "summary": "Dataset Status",
+        "description": "Foundation status; MongoDB publication integration follows ingestion.",
+        "operationId": "dataset_status_api_v1_datasets_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DatasetStatus": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "not_published"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": "No analytical dataset has been published. Ingest and validate source data first."
+          }
+        },
+        "type": "object",
+        "title": "DatasetStatus"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "ok"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service",
+            "default": "urbanflow-api"
+          }
+        },
+        "type": "object",
+        "title": "Health"
+      }
+    }
+  }
+}
