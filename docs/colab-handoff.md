@@ -1,5 +1,8 @@
 # Initial Drive handoff
 
+This page records the initial January ingestion and account locations. For the completed Q1 application, see [the current runbook](runbook.md), [Q1 evidence](q1-run.json) and [project report](project-report.md). Full Q1 raw data and run archives have since been checksum-verified in the personal Drive; see [Q1 persistence evidence](q1-drive-export.json). This historical section records the January handoff.
+
+
 Uploaded and verified through Google Drive on 2026-10-26:
 
 - Notebook: https://colab.research.google.com/drive/1xtu6zstgFAtdPfgpB-enIIPH_XTUGqyV
@@ -7,7 +10,7 @@ Uploaded and verified through Google Drive on 2026-10-26:
 - Source configuration: https://drive.google.com/file/d/18AV3rmwZLt9sJ0JfWK7q40OOeqOicPEA/view
 
 The notebook and bundle are in My Drive's root. Keep the bundle named
-`urbanflow-pipeline.zip`. Open the notebook, select Runtime → Run all, and approve the
+`urbanflow-pipeline.zip`. Open the notebook, select Runtime â†’ Run all, and approve the
 Drive mount. The job uses a standard CPU runtime and writes progress/checksums/raw data
 to `My Drive/UrbanFlow/data/raw/`. It needs no MongoDB credentials.
 

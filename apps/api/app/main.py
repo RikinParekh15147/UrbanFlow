@@ -1,23 +1,21 @@
+from pathlib import Path
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from starlette.exceptions import HTTPException
 
-app = FastAPI(title="UrbanFlow API", version="0.1.0")
+from app.core.config import settings
+from app.routers.analytics import router
+
+app = FastAPI(title="UrbanFlow API", version="1.0.0")
+app.include_router(router)
 
 
 class Health(BaseModel):
     status: str = "ok"
     service: str = "urbanflow-api"
-
-
-class DatasetStatus(BaseModel):
-    status: str = "not_published"
-    run_id: str | None = None
-    message: str = (
-        "No analytical dataset has been published. Ingest and validate source data first."
-    )
 
 
 @app.exception_handler(HTTPException)
@@ -47,7 +45,17 @@ def health() -> Health:
     return Health()
 
 
-@app.get("/api/v1/datasets/status", response_model=DatasetStatus)
-def dataset_status() -> DatasetStatus:
-    """Foundation status; MongoDB publication integration follows ingestion."""
-    return DatasetStatus()
+@app.get("/{path:path}", include_in_schema=False)
+def frontend(path: str):
+    if path.startswith("api/"):
+        raise HTTPException(404, "Unknown API endpoint")
+    root = Path(settings.web_dir).resolve()
+    candidate = (root / path).resolve()
+    if not candidate.is_relative_to(root):
+        raise HTTPException(404, "Not found")
+    if candidate.is_file():
+        return FileResponse(candidate)
+    index = root / "index.html"
+    if index.is_file() and "." not in Path(path).name:
+        return FileResponse(index)
+    raise HTTPException(404, "Not found")

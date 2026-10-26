@@ -1,0 +1,516 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T12:47:09.241579+00:00",
+  "title": "Design System: UrbanFlow",
+  "extensions": {
+    "colorMeta": {
+      "forest": {
+        "role": "primary",
+        "displayName": "Forest",
+        "tonalRamp": [
+          "oklch(15% 0.08492 167.42)",
+          "oklch(26% 0.08492 167.42)",
+          "oklch(38% 0.08492 167.42)",
+          "oklch(49% 0.08492 167.42)",
+          "oklch(61% 0.08492 167.42)",
+          "oklch(72% 0.08492 167.42)",
+          "oklch(84% 0.08492 167.42)",
+          "oklch(95% 0.08492 167.42)"
+        ]
+      },
+      "forest-hover": {
+        "role": "primary",
+        "displayName": "Forest Hover",
+        "tonalRamp": [
+          "oklch(15% 0.07484 164.70)",
+          "oklch(26% 0.07484 164.70)",
+          "oklch(38% 0.07484 164.70)",
+          "oklch(49% 0.07484 164.70)",
+          "oklch(61% 0.07484 164.70)",
+          "oklch(72% 0.07484 164.70)",
+          "oklch(84% 0.07484 164.70)",
+          "oklch(95% 0.07484 164.70)"
+        ]
+      },
+      "navigation": {
+        "role": "primary",
+        "displayName": "Navigation",
+        "tonalRamp": [
+          "oklch(15% 0.05128 173.09)",
+          "oklch(26% 0.05128 173.09)",
+          "oklch(38% 0.05128 173.09)",
+          "oklch(49% 0.05128 173.09)",
+          "oklch(61% 0.05128 173.09)",
+          "oklch(72% 0.05128 173.09)",
+          "oklch(84% 0.05128 173.09)",
+          "oklch(95% 0.05128 173.09)"
+        ]
+      },
+      "navigation-hover": {
+        "role": "primary",
+        "displayName": "Navigation Hover",
+        "tonalRamp": [
+          "oklch(15% 0.05412 169.64)",
+          "oklch(26% 0.05412 169.64)",
+          "oklch(38% 0.05412 169.64)",
+          "oklch(49% 0.05412 169.64)",
+          "oklch(61% 0.05412 169.64)",
+          "oklch(72% 0.05412 169.64)",
+          "oklch(84% 0.05412 169.64)",
+          "oklch(95% 0.05412 169.64)"
+        ]
+      },
+      "navigation-text": {
+        "role": "neutral",
+        "displayName": "Navigation Text",
+        "tonalRamp": [
+          "oklch(15% 0.02623 154.41)",
+          "oklch(26% 0.02623 154.41)",
+          "oklch(38% 0.02623 154.41)",
+          "oklch(49% 0.02623 154.41)",
+          "oklch(61% 0.02623 154.41)",
+          "oklch(72% 0.02623 154.41)",
+          "oklch(84% 0.02623 154.41)",
+          "oklch(95% 0.02623 154.41)"
+        ]
+      },
+      "navigation-selected-text": {
+        "role": "neutral",
+        "displayName": "Navigation Selected Text",
+        "tonalRamp": [
+          "oklch(15% 0.05337 161.93)",
+          "oklch(26% 0.05337 161.93)",
+          "oklch(38% 0.05337 161.93)",
+          "oklch(49% 0.05337 161.93)",
+          "oklch(61% 0.05337 161.93)",
+          "oklch(72% 0.05337 161.93)",
+          "oklch(84% 0.05337 161.93)",
+          "oklch(95% 0.05337 161.93)"
+        ]
+      },
+      "lime": {
+        "role": "primary",
+        "displayName": "Lime",
+        "tonalRamp": [
+          "oklch(15% 0.11512 114.84)",
+          "oklch(26% 0.11512 114.84)",
+          "oklch(38% 0.11512 114.84)",
+          "oklch(49% 0.11512 114.84)",
+          "oklch(61% 0.11512 114.84)",
+          "oklch(72% 0.11512 114.84)",
+          "oklch(84% 0.11512 114.84)",
+          "oklch(95% 0.11512 114.84)"
+        ]
+      },
+      "terracotta": {
+        "role": "secondary",
+        "displayName": "Terracotta",
+        "tonalRamp": [
+          "oklch(15% 0.13765 47.52)",
+          "oklch(26% 0.13765 47.52)",
+          "oklch(38% 0.13765 47.52)",
+          "oklch(49% 0.13765 47.52)",
+          "oklch(61% 0.13765 47.52)",
+          "oklch(72% 0.13765 47.52)",
+          "oklch(84% 0.13765 47.52)",
+          "oklch(95% 0.13765 47.52)"
+        ]
+      },
+      "mineral-blue": {
+        "role": "secondary",
+        "displayName": "Mineral Blue",
+        "tonalRamp": [
+          "oklch(15% 0.09377 240.82)",
+          "oklch(26% 0.09377 240.82)",
+          "oklch(38% 0.09377 240.82)",
+          "oklch(49% 0.09377 240.82)",
+          "oklch(61% 0.09377 240.82)",
+          "oklch(72% 0.09377 240.82)",
+          "oklch(84% 0.09377 240.82)",
+          "oklch(95% 0.09377 240.82)"
+        ]
+      },
+      "plum": {
+        "role": "secondary",
+        "displayName": "Plum",
+        "tonalRamp": [
+          "oklch(15% 0.08403 314.67)",
+          "oklch(26% 0.08403 314.67)",
+          "oklch(38% 0.08403 314.67)",
+          "oklch(49% 0.08403 314.67)",
+          "oklch(61% 0.08403 314.67)",
+          "oklch(72% 0.08403 314.67)",
+          "oklch(84% 0.08403 314.67)",
+          "oklch(95% 0.08403 314.67)"
+        ]
+      },
+      "ochre": {
+        "role": "secondary",
+        "displayName": "Ochre",
+        "tonalRamp": [
+          "oklch(15% 0.10806 101.43)",
+          "oklch(26% 0.10806 101.43)",
+          "oklch(38% 0.10806 101.43)",
+          "oklch(49% 0.10806 101.43)",
+          "oklch(61% 0.10806 101.43)",
+          "oklch(72% 0.10806 101.43)",
+          "oklch(84% 0.10806 101.43)",
+          "oklch(95% 0.10806 101.43)"
+        ]
+      },
+      "slate-green": {
+        "role": "secondary",
+        "displayName": "Slate Green",
+        "tonalRamp": [
+          "oklch(15% 0.03586 179.10)",
+          "oklch(26% 0.03586 179.10)",
+          "oklch(38% 0.03586 179.10)",
+          "oklch(49% 0.03586 179.10)",
+          "oklch(61% 0.03586 179.10)",
+          "oklch(72% 0.03586 179.10)",
+          "oklch(84% 0.03586 179.10)",
+          "oklch(95% 0.03586 179.10)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "tonalRamp": [
+          "oklch(15% 0.00669 115.71)",
+          "oklch(26% 0.00669 115.71)",
+          "oklch(38% 0.00669 115.71)",
+          "oklch(49% 0.00669 115.71)",
+          "oklch(61% 0.00669 115.71)",
+          "oklch(72% 0.00669 115.71)",
+          "oklch(84% 0.00669 115.71)",
+          "oklch(95% 0.00669 115.71)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26% 0.00000 89.88)",
+          "oklch(38% 0.00000 89.88)",
+          "oklch(49% 0.00000 89.88)",
+          "oklch(61% 0.00000 89.88)",
+          "oklch(72% 0.00000 89.88)",
+          "oklch(84% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      },
+      "topbar": {
+        "role": "neutral",
+        "displayName": "Topbar",
+        "tonalRamp": [
+          "oklch(15% 0.00536 117.92)",
+          "oklch(26% 0.00536 117.92)",
+          "oklch(38% 0.00536 117.92)",
+          "oklch(49% 0.00536 117.92)",
+          "oklch(61% 0.00536 117.92)",
+          "oklch(72% 0.00536 117.92)",
+          "oklch(84% 0.00536 117.92)",
+          "oklch(95% 0.00536 117.92)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.02776 176.43)",
+          "oklch(26% 0.02776 176.43)",
+          "oklch(38% 0.02776 176.43)",
+          "oklch(49% 0.02776 176.43)",
+          "oklch(61% 0.02776 176.43)",
+          "oklch(72% 0.02776 176.43)",
+          "oklch(84% 0.02776 176.43)",
+          "oklch(95% 0.02776 176.43)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.02727 168.93)",
+          "oklch(26% 0.02727 168.93)",
+          "oklch(38% 0.02727 168.93)",
+          "oklch(49% 0.02727 168.93)",
+          "oklch(61% 0.02727 168.93)",
+          "oklch(72% 0.02727 168.93)",
+          "oklch(84% 0.02727 168.93)",
+          "oklch(95% 0.02727 168.93)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15% 0.01202 145.48)",
+          "oklch(26% 0.01202 145.48)",
+          "oklch(38% 0.01202 145.48)",
+          "oklch(49% 0.01202 145.48)",
+          "oklch(61% 0.01202 145.48)",
+          "oklch(72% 0.01202 145.48)",
+          "oklch(84% 0.01202 145.48)",
+          "oklch(95% 0.01202 145.48)"
+        ]
+      },
+      "field-text": {
+        "role": "neutral",
+        "displayName": "Field Text",
+        "tonalRamp": [
+          "oklch(15% 0.03411 163.66)",
+          "oklch(26% 0.03411 163.66)",
+          "oklch(38% 0.03411 163.66)",
+          "oklch(49% 0.03411 163.66)",
+          "oklch(61% 0.03411 163.66)",
+          "oklch(72% 0.03411 163.66)",
+          "oklch(84% 0.03411 163.66)",
+          "oklch(95% 0.03411 163.66)"
+        ]
+      },
+      "outline": {
+        "role": "neutral",
+        "displayName": "Outline",
+        "tonalRamp": [
+          "oklch(15% 0.01958 140.50)",
+          "oklch(26% 0.01958 140.50)",
+          "oklch(38% 0.01958 140.50)",
+          "oklch(49% 0.01958 140.50)",
+          "oklch(61% 0.01958 140.50)",
+          "oklch(72% 0.01958 140.50)",
+          "oklch(84% 0.01958 140.50)",
+          "oklch(95% 0.01958 140.50)"
+        ]
+      },
+      "hover": {
+        "role": "neutral",
+        "displayName": "Hover",
+        "tonalRamp": [
+          "oklch(15% 0.01554 126.83)",
+          "oklch(26% 0.01554 126.83)",
+          "oklch(38% 0.01554 126.83)",
+          "oklch(49% 0.01554 126.83)",
+          "oklch(61% 0.01554 126.83)",
+          "oklch(72% 0.01554 126.83)",
+          "oklch(84% 0.01554 126.83)",
+          "oklch(95% 0.01554 126.83)"
+        ]
+      },
+      "chip": {
+        "role": "neutral",
+        "displayName": "Chip",
+        "tonalRamp": [
+          "oklch(15% 0.02664 125.62)",
+          "oklch(26% 0.02664 125.62)",
+          "oklch(38% 0.02664 125.62)",
+          "oklch(49% 0.02664 125.62)",
+          "oklch(61% 0.02664 125.62)",
+          "oklch(72% 0.02664 125.62)",
+          "oklch(84% 0.02664 125.62)",
+          "oklch(95% 0.02664 125.62)"
+        ]
+      },
+      "insight": {
+        "role": "neutral",
+        "displayName": "Insight",
+        "tonalRamp": [
+          "oklch(15% 0.02915 124.01)",
+          "oklch(26% 0.02915 124.01)",
+          "oklch(38% 0.02915 124.01)",
+          "oklch(49% 0.02915 124.01)",
+          "oklch(61% 0.02915 124.01)",
+          "oklch(72% 0.02915 124.01)",
+          "oklch(84% 0.02915 124.01)",
+          "oklch(95% 0.02915 124.01)"
+        ]
+      },
+      "water": {
+        "role": "neutral",
+        "displayName": "Water",
+        "tonalRamp": [
+          "oklch(15% 0.00891 179.60)",
+          "oklch(26% 0.00891 179.60)",
+          "oklch(38% 0.00891 179.60)",
+          "oklch(49% 0.00891 179.60)",
+          "oklch(61% 0.00891 179.60)",
+          "oklch(72% 0.00891 179.60)",
+          "oklch(84% 0.00891 179.60)",
+          "oklch(95% 0.00891 179.60)"
+        ]
+      },
+      "error": {
+        "role": "neutral",
+        "displayName": "Error",
+        "tonalRamp": [
+          "oklch(15% 0.15141 26.16)",
+          "oklch(26% 0.15141 26.16)",
+          "oklch(38% 0.15141 26.16)",
+          "oklch(49% 0.15141 26.16)",
+          "oklch(61% 0.15141 26.16)",
+          "oklch(72% 0.15141 26.16)",
+          "oklch(84% 0.15141 26.16)",
+          "oklch(95% 0.15141 26.16)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Page headline",
+        "purpose": "Page-level title."
+      },
+      "title": {
+        "displayName": "Panel title",
+        "purpose": "Chart and table headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Page descriptions and supporting prose."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Compact controls and data rows."
+      },
+      "metric": {
+        "displayName": "Metric",
+        "purpose": "Tabular measurement values."
+      }
+    },
+    "shadows": [
+      {
+        "name": "map-popup",
+        "value": "0 3px 16px #173d2626",
+        "purpose": "Temporary map hover information; panels remain flat."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "150ms ease",
+        "purpose": "Navigation and button background/colour changes."
+      },
+      {
+        "name": "chart-entry",
+        "value": "350ms",
+        "purpose": "Default ECharts entry animation."
+      },
+      {
+        "name": "loading",
+        "value": "900ms linear infinite",
+        "purpose": "Loading indicator rotation."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "Disable CSS animation/transitions and chart entry animation for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-min",
+        "value": "1500px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1200px"
+      },
+      {
+        "name": "stacked-map-max",
+        "value": "960px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Compact primary action with visible keyboard focus.",
+      "html": "<button class=\"ds-button-primary\">Apply filters</button>",
+      "css": ".ds-button-primary{font-family:'DM Sans Variable',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 13px;min-height:37px;border:1px solid transparent;border-radius:7px;font-size:11px;font-weight:500;white-space:nowrap;cursor:pointer;transition:background-color 150ms;background:#216e55;color:#ffffff;border-color:transparent;} .ds-button-primary:hover{background:#15553e;} .ds-button-primary:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;} .ds-button-primary:disabled{opacity:.5;cursor:not-allowed;} @media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none;}}"
+    },
+    {
+      "name": "Outline button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Compact outline action with visible keyboard focus.",
+      "html": "<button class=\"ds-button-outline\">Export CSV</button>",
+      "css": ".ds-button-outline{font-family:'DM Sans Variable',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 13px;min-height:37px;border:1px solid transparent;border-radius:7px;font-size:11px;font-weight:500;white-space:nowrap;cursor:pointer;transition:background-color 150ms;background:#ffffff;color:#344b40;border-color:#cbd5c9;} .ds-button-outline:hover{background:#e9eee3;} .ds-button-outline:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;} .ds-button-outline:disabled{opacity:.5;cursor:not-allowed;} @media(prefers-reduced-motion:reduce){.ds-button-outline{transition:none;}}"
+    },
+    {
+      "name": "Ghost button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Compact ghost action with visible keyboard focus.",
+      "html": "<button class=\"ds-button-ghost\">Reset filters</button>",
+      "css": ".ds-button-ghost{font-family:'DM Sans Variable',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 13px;min-height:37px;border:1px solid transparent;border-radius:7px;font-size:11px;font-weight:500;white-space:nowrap;cursor:pointer;transition:background-color 150ms;background:transparent;color:#52665e;border-color:transparent;} .ds-button-ghost:hover{background:#e9eee3;} .ds-button-ghost:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;} .ds-button-ghost:disabled{opacity:.5;cursor:not-allowed;} @media(prefers-reduced-motion:reduce){.ds-button-ghost{transition:none;}}"
+    },
+    {
+      "name": "Borough filter",
+      "kind": "input",
+      "refersTo": "filter-select",
+      "description": "Native selection control in the shared filter row.",
+      "html": "<label class=\"ds-field-label\">Borough<select class=\"ds-filter\"><option>All boroughs</option><option>Manhattan</option><option>Queens</option></select></label>",
+      "css": ".ds-field-label{font-family:'DM Sans Variable',sans-serif;display:grid;gap:8px;color:var(--muted,#52665e);font-size:11px;}.ds-filter{font-family:'DM Sans Variable',sans-serif;min-height:39px;max-width:180px;border:1px solid var(--line,#dce3dc);border-radius:7px;padding:8px 28px 8px 12px;background:white;color:#344b40;font-size:11px;cursor:pointer;}.ds-filter:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;}.ds-filter:disabled{opacity:.5;cursor:not-allowed;}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-item",
+      "description": "Green rail navigation with a lime selected destination.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Analysis\"><a class=\"ds-nav-link ds-current\" href=\"#overview\" aria-current=\"page\">Overview<span class=\"ds-active-dot\"></span></a><a class=\"ds-nav-link\" href=\"#demand\">Demand patterns</a></nav>",
+      "css": ".ds-nav{font-family:'DM Sans Variable',sans-serif;background:var(--nav,#123d32);padding:18px;display:grid;gap:7px;width:202px;}.ds-nav-link{display:flex;align-items:center;gap:12px;min-height:44px;padding:10px 12px;border-radius:7px;color:#c6d8cb;font-size:12px;text-decoration:none;transition:background-color 150ms,color 150ms;}.ds-nav-link:hover{background:#214c3e;color:white;}.ds-nav-link.ds-current{background:#e1ed92;color:#173d2c;font-weight:600;}.ds-active-dot{width:5px;height:5px;border-radius:50%;background:var(--nav,#123d32);margin-left:auto;}.ds-nav-link:focus-visible{outline:2px solid #e1ed92;outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-nav-link{transition:none;}}"
+    },
+    {
+      "name": "Selected zone",
+      "kind": "chip",
+      "refersTo": "selection-chip",
+      "description": "A removable shared zone-selection chip.",
+      "html": "<span class=\"ds-chip\">Midtown Center<button class=\"ds-chip-clear\" aria-label=\"Clear selected zone\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m18 6-12 12M6 6l12 12\"/></svg></button></span>",
+      "css": ".ds-chip{font-family:'DM Sans Variable',sans-serif;display:inline-flex;align-items:center;gap:7px;font-size:11px;padding:6px 9px;background:#e4ecd9;color:var(--ink,#172b26);border-radius:5px;}.ds-chip-clear{display:grid;place-items:center;border:none;background:none;padding:3px;cursor:pointer;color:inherit;}.ds-chip-clear:hover{color:var(--green,#216e55);}.ds-chip-clear:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;}"
+    },
+    {
+      "name": "Analysis panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Flat, bordered container for chart evidence and qualifiers.",
+      "html": "<section class=\"ds-panel\"><div class=\"ds-panel-heading\"><div><h2>Daily pickup demand</h2><p>Recorded pickups across the selected period</p></div><a href=\"#demand\">Explore demand</a></div><p class=\"ds-panel-note\">Trips per day ? January 2025</p></section>",
+      "css": ".ds-panel{font-family:'DM Sans Variable',sans-serif;background:white;color:var(--ink,#172b26);border:1px solid var(--line,#dce3dc);border-radius:12px;overflow:hidden;min-width:0;}.ds-panel-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 22px 6px;}.ds-panel-heading h2{font-size:14px;font-weight:600;margin:0;letter-spacing:-.15px;}.ds-panel-heading p{font-size:10px;line-height:1.7;color:var(--muted,#52665e);margin:5px 0 0;}.ds-panel-heading a{font-size:10px;font-weight:500;color:var(--green,#216e55);text-decoration:none;white-space:nowrap;}.ds-panel-heading a:hover{text-decoration:underline;}.ds-panel-heading a:focus-visible{outline:2px solid var(--green,#216e55);outline-offset:4px;}.ds-panel-note{font-size:11px;color:var(--muted,#52665e);padding:14px 22px 22px;margin:0;}"
+    },
+    {
+      "name": "KPI strip",
+      "kind": "custom",
+      "description": "Measurements sit on the ground with dividers, rather than separate cards. Preview figures are illustrative.",
+      "html": "<dl class=\"ds-kpis\"><div><dt>Taxi trips</dt><dd>123,456</dd><span>Recorded pickups in your selection</span></div><div><dt>Average fare</dt><dd>$20.00</dd><span>Base fare ? eligible fare records</span></div></dl>",
+      "css": ".ds-kpis{font-family:'DM Sans Variable',sans-serif;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:#f4f5f0;color:var(--ink,#172b26);margin:0;padding:22px 0 24px;border-top:1px solid var(--line,#dce3dc);border-bottom:1px solid var(--line,#dce3dc);}.ds-kpis>div{padding:0 22px;border-left:1px solid var(--line,#dce3dc);}.ds-kpis>div:first-child{padding-left:0;border:0;}.ds-kpis dt{font-size:11px;color:var(--muted,#52665e);margin-bottom:8px;}.ds-kpis dd{font-size:clamp(22px,2.25vw,34px);font-weight:500;line-height:1.2;letter-spacing:-1px;margin:0 0 8px;font-variant-numeric:tabular-nums;}.ds-kpis span{display:block;font-size:10px;color:var(--muted,#52665e);line-height:1.6;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "City atlas",
+    "overview": "UrbanFlow is a clear, measured analytical workspace: an ink-green navigation rail anchors a warm ivory ground, while flat white surfaces hold charts, ranked lists and actual NYC taxi-zone geometry. Cartographic labels and restrained mineral data colours make the evidence the focal point.\n\nThis document merges the original city-atlas direction with the shipped implementation. Visual decisions were delegated by the user. Keep the established civic, precise character and compact analytical density as new screens are added.",
+    "keyCharacteristics": [
+      "Dark green navigation and a lime active destination.",
+      "Warm ground, white panels and fine structural borders.",
+      "Self-hosted DM Sans with clear numeric hierarchy.",
+      "Coordinated geographic selection and ranked evidence."
+    ],
+    "rules": [],
+    "dos": [
+      "**Do** preserve the city-atlas hierarchy: dark navigation, warm ground, flat white evidence surfaces.",
+      "**Do** reuse DM Sans and tabular numerals for comparable measurements.",
+      "**Do** keep chart colours, geographic selection and filter context consistent across sections.",
+      "**Do** retain visible keyboard focus, explanatory request states and reduced-motion behaviour."
+    ],
+    "donts": [
+      "**Don't** replace actual taxi-zone geography with decorative or invented map shapes.",
+      "**Don't** turn the divided KPI strip into a collection of elevated tiles.",
+      "**Don't** add decorative panel shadows or unrelated display fonts to this restrained workspace.",
+      "**Don't** communicate a selection, error or data category through colour alone."
+    ]
+  }
+}

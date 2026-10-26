@@ -1,0 +1,16 @@
+{
+  "name": "urbanflow",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": ["apps/web", "apps/desktop"],
+  "scripts": {
+    "dev": "npm run dev --workspace @urbanflow/web",
+    "build": "npm run build --workspace @urbanflow/web",
+    "check": "npm run check --workspace @urbanflow/web",
+    "test": "npm run test --workspace @urbanflow/web",
+    "generate:api": "openapi-typescript contracts/openapi.json -o apps/web/src/lib/schema.d.ts",
+    "desktop": "npm run dev --workspace @urbanflow/desktop",
+    "desktop:build": "npm run package --workspace @urbanflow/desktop"
+  },
+  "devDependencies": {"openapi-typescript": "^7.10.1"}
+}

@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-10-26T12:50:26.205294+00:00",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "electron": "45.0.0",
+  "clean_machine_tested": false,
+  "unsigned": true,
+  "artifacts": [
+    {
+      "file": "UrbanFlow-Setup-1.0.0.exe",
+      "bytes": 159014820,
+      "sha256": "b79653aa66a742e8bb22c1e4a7708db8c71e4692546107f7afaabdb077dd8985"
+    },
+    {
+      "file": "UrbanFlow-Portable-1.0.0.zip",
+      "bytes": 197010665,
+      "sha256": "741c20752c1369ef9c64586b907c453915cf24d31b580e8d2555da0841443152"
+    }
+  ],
+  "checks": {
+    "installed": {
+      "dashboard_ready": true,
+      "api_status": 200,
+      "renderer_node_disabled": true,
+      "preload_metadata": true,
+      "run_id": "yellow-2025-q1-v1",
+      "trip_count": 11198001,
+      "backend_shutdown": true
+    },
+    "portable_zip": {
+      "dashboard_ready": true,
+      "api_status": 200,
+      "renderer_node_disabled": true,
+      "preload_metadata": true,
+      "run_id": "yellow-2025-q1-v1",
+      "trip_count": 11198001,
+      "backend_shutdown": true
+    }
+  },
+  "zip_crc_verified": true,
+  "zip_matches_unpacked_files": 194,
+  "installed_app_asar_matches_latest": true,
+  "user_data_directory": "%APPDATA%/UrbanFlow",
+  "test_installation_removed": true,
+  "portable_format": "zip"
+}

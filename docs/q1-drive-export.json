@@ -1,0 +1,33 @@
+{
+  "status": "complete",
+  "run_id": "yellow-2025-q1-v1",
+  "persisted_at": "2026-10-26T11:03:13.425451+00:00",
+  "files": [
+    {
+      "name": "serving.zip",
+      "bytes": 27572731,
+      "sha256": "95a1bb3d5d220d17afaf0b30268c36321d651ee1d4ba768951017a674879646b"
+    },
+    {
+      "name": "curated-and-aggregate-parquet.zip",
+      "bytes": 322015163,
+      "sha256": "0a52f9dccceb83d15ca733e2ca58bd49f78204ebd91074943665d7d27907dca8"
+    },
+    {
+      "name": "executed-source.zip",
+      "bytes": 13547,
+      "sha256": "b9aeb8ea22e05f9b3d776c90dd3d4ac256fc6bb86f5da5f2554e8005d5b95aae"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 3041,
+      "sha256": "e274c23104ed0bca89b39907522e5d6dff385af959259e558341e4d270e59915"
+    },
+    {
+      "name": "benchmarks.jsonl",
+      "bytes": 4560,
+      "sha256": "9055cbecddc4c88031b3e25543a9e2228ce14d1fba05b6c6dfb25a85141c8dc4"
+    }
+  ],
+  "destination": "My Drive/UrbanFlow/runs/yellow-2025-q1-v1"
+}

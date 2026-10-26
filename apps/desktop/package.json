@@ -1,0 +1,10 @@
+{
+  "name": "@urbanflow/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UrbanFlow NYC mobility analytics desktop application",
+  "author": "UrbanFlow",
+  "main": "main/index.cjs",
+  "scripts": { "dev": "electron .", "package": "electron-builder --config electron-builder.yml --win nsis zip" },
+  "devDependencies": { "electron": "^45.0.0", "electron-builder": "^26.0.0" }
+}

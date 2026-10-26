@@ -1,4 +1,4 @@
-name: Foundation checks
+name: UrbanFlow checks
 on: [push, pull_request]
 jobs:
   python:
@@ -14,3 +14,19 @@ jobs:
       - run: uv run pytest -q
       - run: uv run python scripts/export-openapi.py
       - run: git diff --exit-code -- contracts/openapi.json
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+      - run: npm run generate:api
+      - run: git diff --exit-code -- apps/web/src/lib/schema.d.ts
+      - run: npm run check
+      - run: npm test
+      - run: npm run build

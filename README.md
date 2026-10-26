@@ -1,78 +1,58 @@
 # UrbanFlow
 
-NYC taxi mobility analytics using independent Spark/Spark SQL batch processing, MongoDB
-serving, FastAPI and a future React/Electron interface.
+Urban mobility analytics for **11,198,026 real NYC Yellow Taxi records from January–March 2025**. Spark and Spark SQL prepare versioned aggregates; MongoDB serves them through FastAPI to a six-section React dashboard. Electron packages the application for Windows with an explicit offline snapshot mode. Dashboard requests never start Spark.
 
-Git is initialized on `main`. No remote repository has been configured or pushed.
+The app includes Overview, Demand Intelligence, Geographic Analytics, Trip Efficiency, Fare Analytics and Big Data Lab, shared date/borough/pickup-zone filters, official TLC polygons, and CSV exports carrying selection and dataset metadata. Results describe taxi demand and inferred travel efficiency, not observed road congestion or crashes.
 
-## Current milestone
+## Run the browser application
 
-Repository foundation and source ingestion. January 2025 download configuration, checksum
-manifests, source-container validation, Colab bootstrap and API foundation are implemented.
-Spark analytics, MongoDB integration, the dashboard and desktop packaging are subsequent
-milestones. See [the roadmap](docs/roadmap.md) and [data contracts](docs/data-contracts.md).
-
-## Download source data locally
-
-Requires Node.js 22 or newer. No Python or Google credentials are needed:
+Run from the repository root with Python 3.12/3.13, uv and Node.js 22+. Lockfiles define dependencies. Datasets and generated releases are ignored by Git; this completed workspace has the real Q1 serving files in `data/serving/`.
 
 ```powershell
-node scripts/download-data.mjs
-```
-
-Outputs: `data/raw/yellow_tripdata_2025-01.parquet`, `taxi_zone_lookup.csv`, `taxi_zones.zip`,
-`2025-01-manifest.json` and `download-progress.json`. Re-running verifies existing hashes.
-Raw data, tools, environment files and generated artifacts are ignored by Git.
-
-The [initial Colab handoff](docs/colab-handoff.md) contains the verified Drive notebook and
-bundle links, plus instructions for the already-downloaded local fallback.
-The CLI download and checksum-verified Drive persistence have now completed. Raw files are
-in `My Drive/UrbanFlow/data/raw` under the CLI account `rikinparekh1415@gmail.com`; the
-temporary CPU runtime was stopped. The earlier browser notebook is in the separate
-university Drive account, as documented in the handoff.
-
-## Run in Colab
-
-1. Put `artifacts/urbanflow-pipeline.zip` at the root of My Drive.
-2. Open `notebooks/00_ingestion_colab.ipynb` in Colab with a standard CPU runtime.
-3. Run all cells and approve the Google Drive mount prompt.
-4. Inspect progress in the cell output or `My Drive/UrbanFlow/data/raw/download-progress.json`.
-
-The notebook verifies its companion bundle's SHA-256, imports the reusable Python package
-and downloads into persistent Drive storage. No paid runtime or MongoDB permission is needed.
-If using the local fallback, upload the three source files and manifest from `data/raw/`
-into that same Drive directory; the Python downloader validates and reuses them.
-
-To rebuild the companion artifacts on Windows:
-
-```powershell
-uv run python scripts/package-colab.py
-node scripts/build-colab.mjs
-```
-
-## Python setup and API
-
-With [uv](https://docs.astral.sh/uv/getting-started/installation/) installed:
-
-```text
 uv sync --python 3.12
+npm ci
+$env:URBANFLOW_DATA_SOURCE = 'snapshot'
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+In another terminal run `npm run dev` and open the URL Vite prints. Its `/api` proxy targets port 8000. API documentation is at `http://127.0.0.1:8000/docs`. On this Windows workspace, `.tools/uv/uv.exe` can replace `uv`.
+
+Snapshot mode is deliberately selected above. The default configuration uses MongoDB and reports database unavailability rather than silently substituting files. To demonstrate the database path, follow the [runbook](docs/runbook.md#mongodb-serving).
+
+## Windows desktop
+
+The desktop build bundles the frontend, a PyInstaller FastAPI executable and the verified Q1 aggregate snapshot. It manages a backend on a temporary loopback port and needs neither WSL, Python, MongoDB nor Colab at runtime in snapshot mode.
+
+```powershell
+npm run build
+npm run desktop
+# Build frontend, backend, installer and portable ZIP:
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-release.ps1
+```
+
+Generated executables and SHA-256 sidecars go in `release/`. Builds are unsigned; Windows may show an unknown-publisher warning. See the release manifest and [desktop documentation](docs/desktop-release.md) for artifact details and validation status. A development-machine build does not establish clean-machine compatibility.
+
+The portable ZIP contains the standalone application folder; extract it and open
+`UrbanFlow.exe`. It uses the same bundled backend and real Q1 snapshot as the installer.
+
+## Reproduce and inspect
+
+- [Runbook](docs/runbook.md): ingestion, Spark/Colab, publication, checks and recovery.
+- [Architecture](docs/architecture.md): boundaries and versioned serving.
+- [Data and API contracts](docs/data-contracts.md): definitions, filters and endpoints.
+- [Demonstration report](docs/project-report.md): Q1 results and benchmark limitations.
+- [Q1 evidence](docs/q1-run.json): checksums, quality counts and configuration.
+- [Verification record](docs/validation.md): checks passed and remaining validation limits.
+- [Google Drive/Colab handoff](docs/colab-handoff.md): account locations and initial provenance.
+
+```powershell
 uv run pytest
 uv run ruff check .
-uv run uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+npm run check
+npm test
+npm run build
 uv run python scripts/export-openapi.py
+npm run generate:api
 ```
 
-Run commands from the repository root. The root uv workspace installs both local packages.
-`GET /health` reports process liveness. `GET /api/v1/datasets/status` honestly reports that
-no analytical version is published yet. API documentation is available at `/docs`.
-
-For the Windows checkout, uv and Python are installed inside ignored `.tools/`; use
-`.tools/uv/uv.exe` in place of `uv`. If needed set `UV_CACHE_DIR` to `.cache/uv` and
-`UV_PYTHON_INSTALL_DIR` to `.tools/python` using absolute paths. No secrets belong in Git.
-
-## Architecture
-
-See [architecture](docs/architecture.md). The preferred development checkout is in WSL's
-Linux filesystem. This initial checkout uses the supplied Windows workspace; WSL access
-and the installed Colab CLI have now been verified. The project root itself is the monorepo; an additional
-nested `urbanflow/` directory is unnecessary.
+The Spark fixture requires Java and the pipeline's `spark` extra; it is skipped without Spark and has separately run in Colab. No credentials belong in Git, frontend code or the installer. Atlas connectivity is supported through the MongoDB URI, but no Atlas cluster/account has been provisioned. Local MongoDB is the verified database target. Q1 raw data, serving and reproducibility archives are checksum-verified in the personal Drive; see [persistence evidence](docs/q1-drive-export.json). No remote Git repository is configured unless added later.

@@ -1,6 +1,7 @@
 """Persist and verify an already-ingested month from VM storage to mounted Drive."""
 
 import json
+import os
 import shutil
 import sys
 from datetime import UTC, datetime
@@ -15,7 +16,7 @@ destination = Path("/content/drive/MyDrive/UrbanFlow/data/raw")
 if not destination.parents[2].is_dir():
     raise RuntimeError("Google Drive is not mounted")
 destination.mkdir(parents=True, exist_ok=True)
-manifest_name = "2025-01-manifest.json"
+manifest_name = os.environ.get("URBANFLOW_MANIFEST", "2025-01-manifest.json")
 manifest = json.loads((source / manifest_name).read_text())
 
 for item in manifest["files"]:

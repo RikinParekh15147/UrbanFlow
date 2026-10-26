@@ -1,55 +1,62 @@
-# Initial data contracts
+# Data and API contracts
 
-## Sources
+## Provenance and grain
 
-January 2025 Yellow Taxi records and the official zone lookup/shapefile. Download URLs live
-in `configs/yellow-2025-01.json`. Files are immutable inputs; output manifests record source
-URL, byte count, locally calculated SHA-256 and elapsed download time. These checksums detect
-later changes but are not checksums supplied by TLC.
+Source: [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page), Yellow Taxi January–March 2025, official zone lookup and shapefile. `docs/q1-run.json` records source URLs, sizes and SHA-256 values computed by UrbanFlow, not checksums supplied by TLC. Raw files remain unchanged. Equal rows are not deduplicated because they do not establish trip identity.
 
-Container validation checks Parquet magic/footer markers, zone CSV columns and unique IDs,
-and ZIP integrity. It does not yet establish trip-level analytical validity. A schema-profile
-report reads Parquet metadata; full quality checks are a separate pipeline stage.
+The analytics input requires pickup/drop-off timestamps, pickup/drop-off IDs, distance, fare amount and payment type. Missing optional tip, total-amount and congestion-fee columns become null. Curated Parquet preserves derived flags; demand uses in-period trips whose pickup ID joins the lookup.
 
-## Planned analytical grain
+| Collection | Grain |
+|---|---|
+| `demand_daily`, `fare_analytics` | run × pickup date × pickup zone |
+| `demand_hourly`, `trip_efficiency` | run × pickup date × wall-clock hour × pickup zone |
+| `route_flows` | run × date × origin × destination; top 100 routes each day |
+| `zones` | run × zone ID; geometry stored once per version |
+| `benchmarks` | run × experiment ID |
 
-Hourly pickup demand: `run_id × date × hour × pickup_zone_id`. Public `zone_id` filters mean
-pickup zone unless an endpoint explicitly specifies drop-off. Dates are inclusive NYC-local
-pickup dates; invalid date order is rejected. January avoids daylight-saving ambiguity;
-before extending periods, define how repeated autumn hours are represented.
+Dates use NYC pickup wall-clock values and inclusive bounds. Spark uses `America/New_York`. Hour groups do not encode an offset or distinguish repeated autumn hours. Duration comes from timestamp differences in that session; DST-boundary trips need caution because source wall-clock timestamps do not provide a unique UTC offset.
 
-Required source fields for the initial slice:
+## Metrics
 
-- `tpep_pickup_datetime`, `tpep_dropoff_datetime`
-- `PULocationID`, `DOLocationID`
-- `trip_distance`, `fare_amount`
+| Metric/population | Rule or formula |
+|---|---|
+| Demand | In-period trips with a known pickup lookup ID, independent of fare/efficiency validity |
+| Valid distance | 0–100 miles inclusive |
+| Efficiency eligible | Distance >0 and ≤100 miles; duration 1–240 minutes; inferred speed ≤100 mph |
+| Fare eligible | Base fare 0–1000 USD; negative/refund rows remain in demand |
+| Average distance | Valid distance sum / valid distance count |
+| Average duration | Efficiency-eligible duration sum / eligible count |
+| Speed | Eligible miles × 60 / eligible minutes; ratio of totals |
+| Average fare | Eligible base-fare sum / fare-eligible count |
+| Total fare | Eligible base-fare sum; not total passenger charges or net revenue |
+| Fare per mile | Fare sum / distance sum among jointly eligible trips with distance >0 |
+| Fare distribution | [0,10), [10,20), [20,30), [30,50), [50,100), [100,1000] USD |
+| Tips/fees | Nonnegative recorded tips or congestion-surcharge + CBD fee, on fare-eligible trips; missing amounts contribute zero |
+| Payment categories | All demand-eligible trips by TLC code, independent of fare eligibility |
 
-Preserve optional source fields, including `cbd_congestion_fee`, for future fare analysis.
-Do not assume all months share identical physical types. Normalize and validate explicitly.
+Zero denominators return null. Additive sums and counts produce weighted selected-period metrics. Quality flags overlap and cannot be added as distinct rejected trips. Cash tips are incompletely observed. Speeds describe taxi trips, not observed road congestion. Plausibility bounds are project rules, not official TLC guarantees.
 
-## Metric populations
+## API
 
-- Demand: usable pickup timestamp within the configured month; track known/unknown zones.
-- Efficiency: additionally usable distance and positive duration, with separately documented
-  configurable plausibility bounds.
-- Fares: report eligibility and treatment of refunds/negative values explicitly.
+`contracts/openapi.json` is generated from FastAPI. Export with `uv run python scripts/export-openapi.py`, then run `npm run generate:api`.
 
-Keep source counts, eligible counts and exclusion reasons. Exclusion flags may overlap;
-do not sum overlapping flags and label that sum as distinct excluded trips. No global
-deduplication without a defensible identity rule: identical trip rows may be legitimate.
+| GET route | Result/additional parameters |
+|---|---|
+| `/health` | Process liveness only |
+| `/api/v1/datasets/status` | Active version, source and manifest; no analytical filters |
+| `/api/v1/overview` | KPIs, daily demand, top zones and boroughs |
+| `/api/v1/demand/daily` | Daily series |
+| `/api/v1/demand/hourly` | `group_by=hour` (default) or `date_hour` |
+| `/api/v1/zones` | Metadata; optional borough/run_id, limit 1–265, offset ≥0 |
+| `/api/v1/zones/{id}/metrics` | Overview restricted to path pickup zone |
+| `/api/v1/geography/heatmap` | GeoJSON, metrics and `in_selection` |
+| `/api/v1/routes/top` | Retained-route rankings; limit 1–100, offset ≥0 |
+| `/api/v1/trips/efficiency` | `group_by=zone` or `hour`; limit 1–265, offset ≥0 |
+| `/api/v1/fares/summary` | Fares, bins, payment counts and top 20 zones |
+| `/api/v1/benchmarks` | Whole-run experiments, quality and machine data; optional run_id |
 
-Store sums and corresponding non-null eligible counts so filtering uses weighted metrics.
-`avg_speed_mph` must distinguish mean per-trip speeds from total miles / total hours; use the
-latter for the initial efficiency KPI and label its population. Zero/missing denominator
-returns null. Fares use USD; distance uses miles; duration uses minutes.
+Analytical routes take `start_date`, `end_date`, `borough`, `zone_id` and `run_id` unless specified otherwise. Omitted dates use the publication's full period. Maximum range is 366 inclusive days, entirely inside the available period. Borough names match the lookup; zone IDs range 1–265. Zone filters mean **pickup** zone. Path and query zone IDs must agree; borough and zone filters intersect. Benchmark results describe the whole run and do not change with analytical filters.
 
-## API and versioning
+The heatmap keeps surrounding polygons for context and marks zones outside a selected zone. Lookup entries without geometry have no polygon. Route filtering uses retained global daily top-100 routes, so it cannot recover discarded routes or guarantee true top routes for a selected origin/borough or combined period.
 
-- `/health`: process liveness only; does not imply database readiness.
-- `/api/v1/datasets/status`: explicit unpublished state until serving integration exists.
-- Planned first analytics endpoints: `/api/v1/zones` and `/api/v1/demand/hourly`.
-- Analytical responses identify `run_id`, supported/selected periods, filters and units.
-- Return empty data for a valid selection with no records; return a service-unavailable
-  error when no published dataset exists. Never substitute fabricated analytics.
-- Paginate zone/route rows; bound chart series by an explicit maximum date window.
-- FastAPI OpenAPI is authoritative. Generate TypeScript contracts from it.
+Metadata carries run ID, selected/available dates, source, timezone and filters; metric names and these contracts define units. CSV exports retain selection/version context. Valid empty selections return empty data or zero/null summaries. No publication returns 503; an unavailable explicit run returns 404; invalid filters return 422. Errors use `{"error":{"code":...,"message":...}}`.

@@ -1,57 +1,45 @@
-# UrbanFlow architecture
+﻿# Architecture
 
-UrbanFlow is a modular monolith with an independent batch pipeline:
+UrbanFlow is a modular monolith with an independent batch pipeline. The repository root is the monorepo; no nested `urbanflow/` checkout is required.
 
-`TLC → ingestion → raw Parquet on Drive → Colab Spark/Spark SQL → aggregate Parquet → MongoDB → FastAPI → React → Electron`
+```mermaid
+flowchart LR
+  TLC[Official TLC Parquet and zones] --> ETL[Colab: PySpark and Spark SQL]
+  ETL --> Archive[Drive: raw, curated Parquet and run evidence]
+  ETL --> Serving[Validated bounded aggregates]
+  Serving --> Publisher[Versioned publisher]
+  Publisher --> Mongo[MongoDB]
+  Mongo --> API[FastAPI]
+  Serving --> Snapshot[Explicit offline snapshot]
+  Snapshot --> API
+  API --> React[React dashboard]
+  React --> Electron[Windows Electron shell]
+```
 
-Dashboard requests do not invoke Spark. Colab is temporary compute; Drive and MongoDB retain
-the outputs. Notebooks orchestrate reusable modules from `pipelines/`; React calls FastAPI.
+| Module | Responsibility |
+|---|---|
+| `pipelines/src/urbanflow_etl/ingestion` | Downloads, checksums and container validation |
+| `pipelines/src/urbanflow_etl/analytics` | Eligibility, quality counts, Spark SQL and geometry conversion |
+| `pipelines/src/urbanflow_etl/benchmarking` | Equivalent Pandas/Spark zone-count experiments |
+| `pipelines/src/urbanflow_etl/publishing` | Immutable version publication to MongoDB |
+| `apps/api/app` | Serving adapters, filters, weighted metrics and REST API |
+| `apps/web/src/features` | Six modules using shared contracts and filters |
+| `apps/desktop` | Sandboxed Electron renderer and managed backend lifecycle |
+| `contracts` | Exported OpenAPI; TypeScript schema generated from it |
+| `scripts`, `notebooks` | Environment entrypoints; reusable business logic stays in the package |
 
-## Repository boundaries
+## Serving and publication
 
-- `apps/api`: serving API, validation, repositories, business logic and response models.
-- `apps/web`: feature-based React client, generated API types, charts and maps.
-- `apps/desktop`: future Electron shell and Windows packaging.
-- `pipelines`: separately installable ingestion, Spark analytics and publishing package.
-- `notebooks`: orchestration and demonstrations, without embedded transformation logic.
-- `contracts`: generated FastAPI OpenAPI and shared contract documentation.
-- `configs`: source periods and processing parameters, without credentials.
-- `scripts`: local tooling, fallback download and artifact preparation.
-- `docs`: architecture, metrics, operational instructions and project evidence.
+MongoDB is the default adapter. Atlas and local MongoDB use the same PyMongo implementation; local MongoDB is exercised, while hosted Atlas provisioning is external setup. Explicit `URBANFLOW_DATA_SOURCE=snapshot` selects the offline adapter and exposes `source=local_snapshot`. Database failures never trigger automatic snapshot fallback. Electron intentionally supplies the bundled snapshot.
 
-## Development environment
+Raw trips and complete curated data are not loaded into MongoDB. Collections are `zones`, `demand_daily`, `demand_hourly`, `trip_efficiency`, `fare_analytics`, `route_flows`, `benchmarks`, `dataset_runs` and `dataset_publications`.
 
-The preferred canonical development checkout is inside WSL's Linux filesystem. The initial
-checkout is in the provided Windows workspace. WSL access was initially restricted and is
-now verified through `wsl -d Ubuntu`. Windows Python tooling is installed under ignored
-`.tools/`, with its virtual environment in `.venv/`. No shell-profile changes are required.
+The publisher claims a run ID, hashes payload bytes, upserts deterministic keys, creates run/date/zone and run/borough/date indexes, checks counts and reconciles daily trip totals. It then atomically replaces `dataset_publications/current`. Changed payloads require a new run ID. An identical failed attempt can retry; an active writer cannot be displaced. Earlier versions remain queryable. A process crash can leave a staging claim requiring explicit inspection and recovery.
 
-Google Drive is connected. Its connector can upload artifacts but cannot start Colab runtimes.
-The installed Colab CLI runs inside Ubuntu at
-`/home/rikin_parekh/.venvs/colab-cli/bin/colab`. Authentication is verified and a named CPU
-runtime has executed the reusable ingestion package. A browser notebook in Drive remains
-available as an alternative. Drive mounting requires its own Google consent; CLI runtime
-authentication alone does not provide a mounted Drive filesystem.
+FastAPI resolves one version per request. The UI pins requests to the publication so a switch does not mix chart versions. Additive sums and eligible counts preserve weighting across dates and zones. MongoDB groups hourly/efficiency summaries; the service combines bounded daily rows. Snapshot queries stream equivalent files, with lower performance than indexed MongoDB expected.
 
-## Publication protocol (next milestone)
+## Desktop and development
 
-Every aggregate has `run_id` plus its deterministic dimension key. Build a new immutable
-version, validate all expected collections, then atomically change one publication-pointer
-document. API requests resolve that pointer once and filter all queries by that version.
-The client can pin a version across charts. Retain the preceding version for rollback;
-do not clean versions still needed by active or pinned requests.
+The shell starts FastAPI on a free `127.0.0.1` port, polls readiness and loads its SPA from that origin. Backend shutdown follows app shutdown. Context isolation and sandboxing are enabled; Node integration is disabled, permissions and new windows are denied, and navigation is restricted to the local origin. There is no shared database secret in the default snapshot release. A distributed hosted deployment should use a hosted API rather than embed shared Atlas credentials.
 
-## Scope of the initial commit
-
-Implemented: source download configuration, progress/checksum manifests, source-container
-validation, reusable Python ingestion, a Node fallback downloader, Colab bootstrap, FastAPI
-liveness and explicit unpublished-data status, and meaningful ingestion/API tests.
-
-Pending: Spark transformations, MongoDB publication and querying, analytical endpoints,
-generated frontend client, dashboard, benchmarks and Electron. No mock trip analytics are
-presented as real results.
-
-Sources:
-- https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
-- https://github.com/googlecolab/google-colab-cli
-- https://www.mongodb.com/docs/manual/core/write-operations-atomicity/
+WSL supports Linux tooling and local MongoDB; Colab supplies temporary batch compute. The completed build uses the supplied Windows checkout. Drive persistence is required before stopping a runtime. Windows installers are built on Windows. Multi-user authentication is outside the personal-demo scope.

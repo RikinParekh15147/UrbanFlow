@@ -12,6 +12,8 @@ dependencies = []
 [project.optional-dependencies]
 spark = ["pyspark>=3.5,<4"]
 publish = ["pymongo>=4.11,<5"]
+geometry = ["pyshp>=2.3,<3", "pyproj>=3.6,<4"]
+benchmark = ["pandas>=2.2,<3", "pyarrow>=19,<24", "psutil>=6,<8"]
 
 [project.scripts]
 urbanflow-ingest = "urbanflow_etl.ingestion.download:main"

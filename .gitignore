@@ -18,3 +18,9 @@ artifacts/
 *.log
 .DS_Store
 .ipynb_checkpoints/
+.playwright-cli/
+output/
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/hook.cache.json
+*.tsbuildinfo

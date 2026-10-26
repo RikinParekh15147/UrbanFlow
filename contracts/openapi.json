@@ -2,9 +2,1177 @@
   "openapi": "3.1.0",
   "info": {
     "title": "UrbanFlow API",
-    "version": "0.1.0"
+    "version": "1.0.0"
   },
   "paths": {
+    "/api/v1/datasets/status": {
+      "get": {
+        "summary": "Dataset Status",
+        "operationId": "dataset_status_api_v1_datasets_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/overview": {
+      "get": {
+        "summary": "Overview",
+        "operationId": "overview_api_v1_overview_get",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OverviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/demand/daily": {
+      "get": {
+        "summary": "Daily",
+        "operationId": "daily_api_v1_demand_daily_get",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeriesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/demand/hourly": {
+      "get": {
+        "summary": "Hourly",
+        "operationId": "hourly_api_v1_demand_hourly_get",
+        "parameters": [
+          {
+            "name": "group_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "hour",
+                "date_hour"
+              ],
+              "type": "string",
+              "default": "hour",
+              "title": "Group By"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeriesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/zones": {
+      "get": {
+        "summary": "Zones",
+        "operationId": "zones_api_v1_zones_get",
+        "parameters": [
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 265,
+              "minimum": 1,
+              "default": 265,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ZonesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/zones/{id}/metrics": {
+      "get": {
+        "summary": "Zone Metrics",
+        "operationId": "zone_metrics_api_v1_zones__id__metrics_get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OverviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/geography/heatmap": {
+      "get": {
+        "summary": "Geography",
+        "operationId": "geography_api_v1_geography_heatmap_get",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeographyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/routes/top": {
+      "get": {
+        "summary": "Routes",
+        "operationId": "routes_api_v1_routes_top_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/trips/efficiency": {
+      "get": {
+        "summary": "Efficiency",
+        "operationId": "efficiency_api_v1_trips_efficiency_get",
+        "parameters": [
+          {
+            "name": "group_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "zone",
+                "hour"
+              ],
+              "type": "string",
+              "default": "zone",
+              "title": "Group By"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 265,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeriesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/fares/summary": {
+      "get": {
+        "summary": "Fares",
+        "operationId": "fares_api_v1_fares_summary_get",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "borough",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Borough"
+            }
+          },
+          {
+            "name": "zone_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 265,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Zone Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100,
+                  "pattern": "^[\\w.-]+$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaresResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/benchmarks": {
+      "get": {
+        "summary": "Benchmarks",
+        "operationId": "benchmarks_api_v1_benchmarks_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BenchmarksResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "summary": "Health",
@@ -23,35 +1191,76 @@
           }
         }
       }
-    },
-    "/api/v1/datasets/status": {
-      "get": {
-        "summary": "Dataset Status",
-        "description": "Foundation status; MongoDB publication integration follows ingestion.",
-        "operationId": "dataset_status_api_v1_datasets_status_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DatasetStatus"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
+      "BenchmarksResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "data": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "quality": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Quality"
+          },
+          "machine": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Machine"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "data",
+          "quality",
+          "machine"
+        ],
+        "title": "BenchmarksResponse"
+      },
+      "Category": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "trip_count": {
+            "type": "integer",
+            "title": "Trip Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "trip_count"
+        ],
+        "title": "Category"
+      },
       "DatasetStatus": {
         "properties": {
           "status": {
             "type": "string",
-            "title": "Status",
-            "default": "not_published"
+            "title": "Status"
           },
           "run_id": {
             "anyOf": [
@@ -64,14 +1273,262 @@
             ],
             "title": "Run Id"
           },
-          "message": {
+          "source": {
             "type": "string",
-            "title": "Message",
-            "default": "No analytical dataset has been published. Ingest and validate source data first."
+            "title": "Source"
+          },
+          "manifest": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Manifest"
           }
         },
         "type": "object",
+        "required": [
+          "status",
+          "source"
+        ],
         "title": "DatasetStatus"
+      },
+      "FaresResponse": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/Metrics"
+          },
+          "fare_per_mile": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fare Per Mile"
+          },
+          "total_tips": {
+            "type": "number",
+            "title": "Total Tips"
+          },
+          "congestion_fees": {
+            "type": "number",
+            "title": "Congestion Fees"
+          },
+          "distribution": {
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "type": "array",
+            "title": "Distribution"
+          },
+          "payment_types": {
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "type": "array",
+            "title": "Payment Types"
+          },
+          "zones": {
+            "items": {
+              "$ref": "#/components/schemas/Point"
+            },
+            "type": "array",
+            "title": "Zones"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meta",
+          "metrics",
+          "fare_per_mile",
+          "total_tips",
+          "congestion_fees",
+          "distribution",
+          "payment_types",
+          "zones"
+        ],
+        "title": "FaresResponse"
+      },
+      "GeoFeature": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "Feature",
+            "title": "Type",
+            "default": "Feature"
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "geometry": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Geometry"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/GeoProperties"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "geometry",
+          "properties"
+        ],
+        "title": "GeoFeature"
+      },
+      "GeoProperties": {
+        "properties": {
+          "trip_count": {
+            "type": "integer",
+            "title": "Trip Count",
+            "default": 0
+          },
+          "avg_distance_miles": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Distance Miles"
+          },
+          "avg_duration_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Duration Min"
+          },
+          "avg_fare": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Fare"
+          },
+          "speed_mph": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speed Mph"
+          },
+          "total_fare": {
+            "type": "number",
+            "title": "Total Fare",
+            "default": 0
+          },
+          "efficiency_count": {
+            "type": "integer",
+            "title": "Efficiency Count",
+            "default": 0
+          },
+          "fare_count": {
+            "type": "integer",
+            "title": "Fare Count",
+            "default": 0
+          },
+          "zone_id": {
+            "type": "integer",
+            "title": "Zone Id"
+          },
+          "borough": {
+            "type": "string",
+            "title": "Borough"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "service_zone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service Zone"
+          },
+          "in_selection": {
+            "type": "boolean",
+            "title": "In Selection",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "zone_id",
+          "borough",
+          "name"
+        ],
+        "title": "GeoProperties"
+      },
+      "GeographyResponse": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "type": {
+            "type": "string",
+            "const": "FeatureCollection",
+            "title": "Type",
+            "default": "FeatureCollection"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/GeoFeature"
+            },
+            "type": "array",
+            "title": "Features"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meta",
+          "features"
+        ],
+        "title": "GeographyResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
       },
       "Health": {
         "properties": {
@@ -88,6 +1545,504 @@
         },
         "type": "object",
         "title": "Health"
+      },
+      "Meta": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "start_date": {
+            "type": "string",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "string",
+            "title": "End Date"
+          },
+          "available_start": {
+            "type": "string",
+            "title": "Available Start"
+          },
+          "available_end": {
+            "type": "string",
+            "title": "Available End"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "zone_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Zone Id"
+          },
+          "borough": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Borough"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone",
+            "default": "America/New_York"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "start_date",
+          "end_date",
+          "available_start",
+          "available_end",
+          "source"
+        ],
+        "title": "Meta"
+      },
+      "Metrics": {
+        "properties": {
+          "trip_count": {
+            "type": "integer",
+            "title": "Trip Count",
+            "default": 0
+          },
+          "avg_distance_miles": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Distance Miles"
+          },
+          "avg_duration_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Duration Min"
+          },
+          "avg_fare": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Fare"
+          },
+          "speed_mph": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speed Mph"
+          },
+          "total_fare": {
+            "type": "number",
+            "title": "Total Fare",
+            "default": 0
+          },
+          "efficiency_count": {
+            "type": "integer",
+            "title": "Efficiency Count",
+            "default": 0
+          },
+          "fare_count": {
+            "type": "integer",
+            "title": "Fare Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "Metrics"
+      },
+      "OverviewResponse": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/Metrics"
+          },
+          "daily": {
+            "items": {
+              "$ref": "#/components/schemas/Point"
+            },
+            "type": "array",
+            "title": "Daily"
+          },
+          "busiest_zones": {
+            "items": {
+              "$ref": "#/components/schemas/Point"
+            },
+            "type": "array",
+            "title": "Busiest Zones"
+          },
+          "boroughs": {
+            "items": {
+              "$ref": "#/components/schemas/Point"
+            },
+            "type": "array",
+            "title": "Boroughs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meta",
+          "metrics",
+          "daily",
+          "busiest_zones",
+          "boroughs"
+        ],
+        "title": "OverviewResponse"
+      },
+      "Point": {
+        "properties": {
+          "trip_count": {
+            "type": "integer",
+            "title": "Trip Count",
+            "default": 0
+          },
+          "avg_distance_miles": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Distance Miles"
+          },
+          "avg_duration_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Duration Min"
+          },
+          "avg_fare": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Fare"
+          },
+          "speed_mph": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speed Mph"
+          },
+          "total_fare": {
+            "type": "number",
+            "title": "Total Fare",
+            "default": 0
+          },
+          "efficiency_count": {
+            "type": "integer",
+            "title": "Efficiency Count",
+            "default": 0
+          },
+          "fare_count": {
+            "type": "integer",
+            "title": "Fare Count",
+            "default": 0
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "hour": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hour"
+          },
+          "zone_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Zone Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "borough": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Borough"
+          }
+        },
+        "type": "object",
+        "title": "Point"
+      },
+      "Route": {
+        "properties": {
+          "pickup_zone": {
+            "type": "integer",
+            "title": "Pickup Zone"
+          },
+          "dropoff_zone": {
+            "type": "integer",
+            "title": "Dropoff Zone"
+          },
+          "pickup_name": {
+            "type": "string",
+            "title": "Pickup Name"
+          },
+          "dropoff_name": {
+            "type": "string",
+            "title": "Dropoff Name"
+          },
+          "trip_count": {
+            "type": "integer",
+            "title": "Trip Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pickup_zone",
+          "dropoff_zone",
+          "pickup_name",
+          "dropoff_name",
+          "trip_count"
+        ],
+        "title": "Route"
+      },
+      "RoutesResponse": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "coverage": {
+            "type": "string",
+            "title": "Coverage"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Route"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "meta",
+          "coverage",
+          "data",
+          "total"
+        ],
+        "title": "RoutesResponse"
+      },
+      "SeriesResponse": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Point"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "default": 0
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset",
+            "default": 0
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 100
+          }
+        },
+        "type": "object",
+        "required": [
+          "meta",
+          "data"
+        ],
+        "title": "SeriesResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Zone": {
+        "properties": {
+          "zone_id": {
+            "type": "integer",
+            "title": "Zone Id"
+          },
+          "borough": {
+            "type": "string",
+            "title": "Borough"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "service_zone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service Zone"
+          }
+        },
+        "type": "object",
+        "required": [
+          "zone_id",
+          "borough",
+          "name"
+        ],
+        "title": "Zone"
+      },
+      "ZonesResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Zone"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "data",
+          "total"
+        ],
+        "title": "ZonesResponse"
       }
     }
   }

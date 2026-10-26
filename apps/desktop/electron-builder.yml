@@ -1,0 +1,31 @@
+appId: org.urbanflow.analytics
+productName: UrbanFlow
+asar: true
+electronDist: ../../node_modules/electron/dist
+electronVersion: 45.0.0
+directories:
+  output: ../../release
+files:
+  - main/**
+  - preload/**
+  - package.json
+extraResources:
+  - from: ../../artifacts/backend/urbanflow-api
+    to: backend
+  - from: ../web/dist
+    to: web
+  - from: ../../data/serving
+    to: serving
+win:
+  icon: assets/icon.ico
+  target:
+    - nsis
+    - zip
+  artifactName: UrbanFlow-Portable-${version}.${ext}
+  signExecutable: false
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  artifactName: UrbanFlow-Setup-${version}.${ext}

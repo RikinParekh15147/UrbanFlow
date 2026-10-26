@@ -9,7 +9,14 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "httpx>=0.28,<1", "ruff>=0.11,<1", "pyarrow>=19,<24"]
+dev = [
+    "pytest>=8,<10",
+    "httpx>=0.28,<1",
+    "ruff>=0.11,<1",
+    "pyarrow>=19,<24",
+    "pyinstaller>=6.14,<7",
+    "pillow>=11,<13",
+]
 
 [tool.uv.workspace]
 members = ["apps/api", "pipelines"]
@@ -20,7 +27,7 @@ urbanflow-etl = { workspace = true }
 
 [tool.pytest.ini_options]
 testpaths = ["apps/api/tests", "pipelines/tests"]
-addopts = "--basetemp=.cache/pytest"
+addopts = "--basetemp=artifacts/pytest"
 
 [tool.ruff]
 line-length = 100
