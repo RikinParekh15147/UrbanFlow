@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import type { FeatureCollection } from 'geojson';
 import type { Geography } from '../lib/api';
 import { compact } from '../lib/utils';
+
+// Vite must emit the worker as a separate bundled asset for production/Electron.
+maplibregl.setWorkerUrl(workerUrl);
 
 const palette = ['#dce8cb', '#acc995', '#78a575', '#477d57', '#1d523e'];
 function fillExpression(maximum: number): maplibregl.ExpressionSpecification {
@@ -16,7 +20,7 @@ export function ZoneMap({ data, onSelect, selected, large = false }: { data: Geo
   const map = useRef<maplibregl.Map | null>(null);
   const callback = useRef(onSelect); callback.current = onSelect;
   const current = useRef(data); current.current = data;
-  const [error, setError] = useState(false);
+  const [state, setState] = useState<'loading' | 'ready' | 'error'>('loading');
   const maximum = Math.max(0, ...data.features.map(f => Number(f.properties?.trip_count ?? 0)));
   useEffect(() => {
     if (!container.current) return;
@@ -25,8 +29,13 @@ export function ZoneMap({ data, onSelect, selected, large = false }: { data: Geo
       instance = new maplibregl.Map({ container: container.current, attributionControl: false,
         style: { version: 8, sources: {}, layers: [{ id: 'water', type: 'background', paint: { 'background-color': '#e7efed' } }] },
         bounds: [[-74.27, 40.49], [-73.68, 40.94]], fitBoundsOptions: { padding: 18 }, maxZoom: 15, minZoom: 8 });
-    } catch { setError(true); return; }
+    } catch { setState('error'); return; }
     map.current = instance;
+    instance.on('error', () => setState('error'));
+    instance.on('idle', () => {
+      if (instance.getLayer('zones-fill') && instance.isSourceLoaded('zones') &&
+        instance.queryRenderedFeatures({ layers: ['zones-fill'] }).length > 0) setState('ready');
+    });
     instance.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     instance.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: 'NYC TLC taxi zones' }));
     const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 12 });
@@ -68,9 +77,10 @@ export function ZoneMap({ data, onSelect, selected, large = false }: { data: Geo
     if (instance.isStyleLoaded()) update(); else instance.once('load', update);
     return () => { instance.off('load', update); };
   }, [data, selected, maximum]);
-  return <div className={`map-wrap ${large ? 'map-large' : ''}`}>
+  return <div className={`map-wrap ${large ? 'map-large' : ''}`} data-map-state={state}>
     <div ref={container} className="zone-map" aria-label="Interactive NYC taxi-zone pickup map. Select a zone here or in the zone list." />
-    {error && <div className="map-error">Map rendering is unavailable on this device. Explore the same zones in the list.</div>}
+    {state === 'loading' && <div className="map-error" role="status">Loading taxi-zone boundaries…</div>}
+    {state === 'error' && <div className="map-error" role="alert">Map rendering is unavailable. Explore the same zones in the list, or reopen this section to retry.</div>}
     <div className="map-location">New York City<span>Taxi pickup zones</span></div>
     <div className="map-legend"><span>Fewer pickups</span><div>{palette.map(color => <i key={color} style={{ background: color }} />)}</div><span>{compact(maximum)} max</span></div>
   </div>;

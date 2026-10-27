@@ -77,11 +77,22 @@ if (lock) app.whenReady().then(async () => {
           await new Promise(resolve => setTimeout(resolve, 200));
         }
         if (dashboardReady) await new Promise(resolve => setTimeout(resolve, 1000));
+        document.querySelector('a[href="/geography"]')?.click();
+        let mapReady = false;
+        let mapState = 'missing';
+        for (let attempt = 0; attempt < 225; attempt++) {
+          mapState = document.querySelector('main [data-map-state]')?.getAttribute('data-map-state') ?? 'missing';
+          if (location.pathname === '/geography' && mapState === 'ready') { mapReady = true; break; }
+          if (mapState === 'error') break;
+          await new Promise(resolve => setTimeout(resolve, 200));
+        }
+        if (mapReady) await new Promise(resolve => setTimeout(resolve, 500));
         return { title: document.title, apiStatus: response.status,
-          overview, dashboardReady, rootChildren: document.getElementById('root')?.childElementCount,
+          overview, dashboardReady, mapReady, mapState, route: location.pathname,
+          rootChildren: document.getElementById('root')?.childElementCount,
           nodeDisabled: typeof require === 'undefined', desktop: window.urbanflow?.desktop };
       })()`);
-      if (result.apiStatus !== 200 || !result.dashboardReady || !result.rootChildren || !result.nodeDisabled || !result.desktop) throw new Error('Desktop smoke check failed.');
+      if (result.apiStatus !== 200 || !result.dashboardReady || !result.mapReady || !result.rootChildren || !result.nodeDisabled || !result.desktop) throw new Error(`Desktop smoke check failed (dashboard: ${result.dashboardReady}, map: ${result.mapState}, route: ${result.route}).`);
       fs.mkdirSync(path.dirname(path.resolve(smokeOutput)), { recursive: true });
       fs.writeFileSync(smokeOutput, JSON.stringify(result, null, 2));
       const screenshot = await window.webContents.capturePage();

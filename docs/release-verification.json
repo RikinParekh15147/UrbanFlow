@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-10-26T17:57:55.037480+00:00",
+  "verified_at": "2026-10-27T05:57:32.321101+00:00",
   "platform": "Windows-11-10.0.26300-SP0",
   "electron": "45.0.0",
   "clean_machine_tested": false,
@@ -7,18 +7,21 @@
   "artifacts": [
     {
       "file": "UrbanFlow-Setup-1.0.0.exe",
-      "bytes": 159018155,
-      "sha256": "012dcb546ce755fb2bbcbd191800068b7ceb5f7993f59f0c54046acb94f1e9f1"
+      "bytes": 159143971,
+      "sha256": "a976ddd119bdf9b5cac43b52bad8ee1d89d85d36869dbd12e6b3bd2f6da4c214"
     },
     {
       "file": "UrbanFlow-Portable-1.0.0.zip",
-      "bytes": 196956935,
-      "sha256": "2a697e5a81a516010f3a7a035c74c03fb4e474f86ea1f6536a9fac4ec74258c3"
+      "bytes": 197103091,
+      "sha256": "53500086e15ec0901edc6620571649e7142e48719dd4f4c681f0b44d29b1ad6f"
     }
   ],
   "checks": {
     "installed": {
       "dashboard_ready": true,
+      "map_ready": true,
+      "map_state": "ready",
+      "route": "/geography",
       "api_status": 200,
       "renderer_node_disabled": true,
       "preload_metadata": true,
@@ -28,6 +31,9 @@
     },
     "portable_zip": {
       "dashboard_ready": true,
+      "map_ready": true,
+      "map_state": "ready",
+      "route": "/geography",
       "api_status": 200,
       "renderer_node_disabled": true,
       "preload_metadata": true,
@@ -46,12 +52,20 @@
     "latest_frontend_bundle_matches": true
   },
   "zip_crc_verified": true,
-  "zip_files_matching_unpacked": 195,
+  "zip_files_matching_unpacked": 196,
   "unpacked_installer_only_extra": "resources/elevate.exe",
   "installed_files_match_unpacked": true,
   "installed_app_asar_matches_latest": true,
   "backend_preserved_sha256": "77e824e40b9b9eb1479f2d196eddb9305a3bc81ac4236838d0193289e7a21c22",
   "user_data_directory": "%APPDATA%/UrbanFlow",
   "test_installation_removed": true,
-  "portable_format": "zip"
+  "portable_format": "zip",
+  "map_worker": {
+    "file": "maplibre-gl-worker-Dro7GA4u.js",
+    "bytes": 517225,
+    "sha256": "d0b740a4ace50a3fa08b8d279090a66bebdbbe990b1e8e6ddfe901e086abee13",
+    "verified_under_electron_csp": true,
+    "readiness_requires_rendered_zone_polygons": true,
+    "screenshot": "output/playwright/electron-geography-fixed.png"
+  }
 }

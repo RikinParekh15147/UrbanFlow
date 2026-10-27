@@ -39,6 +39,9 @@ run can be triggered explicitly from a terminal:
 
 This checks that the renderer has loaded, the overview API responds, Node.js
 is unavailable in the renderer, and the limited preload metadata is visible.
+It then opens Geographic analytics and waits for rendered taxi-zone polygons,
+verifying that the packaged MapLibre worker loads under Electron's content
+security policy.
 It writes JSON and a screenshot, then closes the application. Check that no
 `urbanflow-api.exe` process remains after exit. A successful smoke run on the
 development machine does not replace a clean-machine installer test.

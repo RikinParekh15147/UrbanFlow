@@ -30,3 +30,14 @@ The new exploration, runner and benchmark notebooks have valid JSON and compilab
 Python cells; they have not independently been executed end to end. The underlying
 pipeline modules were executed on the reported Q1 data. Atlas connectivity and a
 clean-machine Windows installation remain unverified. Executables are unsigned.
+
+## Production map regression, 27 October 2026
+
+The production build reproduced a missing MapLibre worker while development
+rendering worked. Vite now bundles the MapLibre 6 worker explicitly with
+`?worker&url` and supplies that URL before map creation, following the
+[official bundler setup](https://maplibre.org/maplibre-gl-js/docs/#installation).
+Map readiness requires rendered zone polygons, rather than only a canvas element.
+Production browser and actual Electron installer/ZIP checks passed. Blocking the
+worker produced the visible failure state; restoring it and reloading restored
+rendered polygons. The five frontend tests, TypeScript check and build also passed.
