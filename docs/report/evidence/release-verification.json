@@ -1,0 +1,57 @@
+{
+  "verified_at": "2026-10-26T17:57:55.037480+00:00",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "electron": "45.0.0",
+  "clean_machine_tested": false,
+  "unsigned": true,
+  "artifacts": [
+    {
+      "file": "UrbanFlow-Setup-1.0.0.exe",
+      "bytes": 159018155,
+      "sha256": "012dcb546ce755fb2bbcbd191800068b7ceb5f7993f59f0c54046acb94f1e9f1"
+    },
+    {
+      "file": "UrbanFlow-Portable-1.0.0.zip",
+      "bytes": 196956935,
+      "sha256": "2a697e5a81a516010f3a7a035c74c03fb4e474f86ea1f6536a9fac4ec74258c3"
+    }
+  ],
+  "checks": {
+    "installed": {
+      "dashboard_ready": true,
+      "api_status": 200,
+      "renderer_node_disabled": true,
+      "preload_metadata": true,
+      "run_id": "yellow-2025-q1-v1",
+      "trip_count": 11198001,
+      "backend_shutdown": true
+    },
+    "portable_zip": {
+      "dashboard_ready": true,
+      "api_status": 200,
+      "renderer_node_disabled": true,
+      "preload_metadata": true,
+      "run_id": "yellow-2025-q1-v1",
+      "trip_count": 11198001,
+      "backend_shutdown": true
+    }
+  },
+  "dataset_model": {
+    "route": "/dataset-model",
+    "heading": "Dataset & Model",
+    "zone_metadata": 265,
+    "source_records": 11198026,
+    "verified_via": "Playwright against packaged FastAPI server",
+    "screenshot": "output/playwright/packaged-dataset-model.png",
+    "latest_frontend_bundle_matches": true
+  },
+  "zip_crc_verified": true,
+  "zip_files_matching_unpacked": 195,
+  "unpacked_installer_only_extra": "resources/elevate.exe",
+  "installed_files_match_unpacked": true,
+  "installed_app_asar_matches_latest": true,
+  "backend_preserved_sha256": "77e824e40b9b9eb1479f2d196eddb9305a3bc81ac4236838d0193289e7a21c22",
+  "user_data_directory": "%APPDATA%/UrbanFlow",
+  "test_installation_removed": true,
+  "portable_format": "zip"
+}

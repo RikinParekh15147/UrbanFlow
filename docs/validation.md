@@ -9,6 +9,9 @@ Verified on the development Windows machine on 26 October 2026:
 - Python lint and formatting checks passed. Generated OpenAPI and TypeScript
   contracts were refreshed together.
 - Production npm audit reported zero vulnerabilities.
+- GitHub Actions passed in a fresh Linux checkout after the temporary-directory
+  configuration fix: Python lint/format, 16 tests passed with 12 optional MongoDB/Spark
+  skips, OpenAPI consistency, frontend types, five tests and production build.
 - Browser checks covered all six routes, shared zone filtering, an empty selection,
   CSV download and mobile document overflow. Desktop and mobile captures of all six
   sections received an independent visual review with disposition **ship**.

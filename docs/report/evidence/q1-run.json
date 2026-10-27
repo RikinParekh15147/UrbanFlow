@@ -1,0 +1,96 @@
+{
+  "run_id": "yellow-2025-q1-v1",
+  "etl_version": "1.0.0",
+  "status": "validated",
+  "start_date": "2025-01-01",
+  "end_date": "2025-03-31",
+  "source_rows": 11198026,
+  "eligible_demand_rows": 11198001,
+  "quality": {
+    "in_period_rows": 11198001,
+    "unknown_pickup_zone": 0,
+    "invalid_distance": 548,
+    "efficiency_excluded": 364942,
+    "fare_excluded": 535511,
+    "source_rows": 11198026,
+    "outside_period_rows": 25
+  },
+  "collection_counts": {
+    "demand_daily": 21549,
+    "demand_hourly": 321933,
+    "trip_efficiency": 321933,
+    "fare_analytics": 21549,
+    "route_flows": 9000,
+    "zones": 265,
+    "benchmarks": 8
+  },
+  "route_coverage": "top_100_routes_per_day",
+  "created_at": "2026-10-26T10:28:05.132220+00:00",
+  "elapsed_seconds": 259.3482549869998,
+  "engine": "Apache Spark SQL",
+  "spark_version": "3.5.9",
+  "partitions": 8,
+  "machine": {
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+    "cpu_count": 2,
+    "memory_gb": 12.67,
+    "python": "3.13.16",
+    "spark": "3.5.9",
+    "pandas": "2.2.3"
+  },
+  "eligibility": {
+    "distance_miles": "0\u2013100",
+    "efficiency": "distance >0 and <=100 mi; duration 1\u2013240 min; speed <=100 mph",
+    "fare_usd": "0\u20131000; negative/refund rows excluded from fare metrics only"
+  },
+  "curated": {
+    "rows": 11198001,
+    "format": "Parquet",
+    "partition_by": "date",
+    "files": 94
+  },
+  "sources": [
+    {
+      "name": "yellow_tripdata_2025-01.parquet",
+      "url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet",
+      "kind": "parquet",
+      "bytes": 59158238,
+      "sha256": "9af277e4c0d3f9deb30644da822981e1e7df6af58313170fd3aa8a474485488a",
+      "elapsed_seconds": 0.539
+    },
+    {
+      "name": "yellow_tripdata_2025-02.parquet",
+      "url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-02.parquet",
+      "kind": "parquet",
+      "bytes": 60343086,
+      "sha256": "037cba555a73663f3a51a2c27816e40e3feb364769942bdf122b9da31e377bd3",
+      "elapsed_seconds": 0.58
+    },
+    {
+      "name": "yellow_tripdata_2025-03.parquet",
+      "url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-03.parquet",
+      "kind": "parquet",
+      "bytes": 69964745,
+      "sha256": "20c4b77cce457b7cfdae77c5069ca7dc91c167f876a41467f4502ab69487a186",
+      "elapsed_seconds": 0.759
+    },
+    {
+      "name": "taxi_zone_lookup.csv",
+      "url": "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv",
+      "kind": "zone_lookup",
+      "bytes": 12331,
+      "sha256": "1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed",
+      "elapsed_seconds": 0.047
+    },
+    {
+      "name": "taxi_zones.zip",
+      "url": "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zones.zip",
+      "kind": "zip",
+      "bytes": 1022574,
+      "sha256": "f6d711917bb4340f8f644d5366c51665489eb2d426dd1a4a55677721ae5adf17",
+      "elapsed_seconds": 0.101
+    }
+  ],
+  "driver_memory": "4g",
+  "cache_policy": "DISK_ONLY for cleaned trip rows"
+}

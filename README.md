@@ -41,6 +41,10 @@ The portable ZIP contains the standalone application folder; extract it and open
 
 ## Reproduce and inspect
 
+- [Illustrated project report (PDF)](docs/report/UrbanFlow-Project-Report.pdf): abstract,
+  motivation, technology theory, implementation, screenshots, results and limitations.
+  [Editable report source](docs/report/UrbanFlow-Project-Report.md) and
+  [rebuild instructions](docs/report/README.md) are included.
 - [Runbook](docs/runbook.md): ingestion, Spark/Colab, publication, checks and recovery.
 - [Architecture](docs/architecture.md): boundaries and versioned serving.
 - [Data and API contracts](docs/data-contracts.md): definitions, filters and endpoints.
